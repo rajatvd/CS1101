@@ -1,17 +1,19 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # Importing matplotlib.pyplot
 
-fo = open("numbers.txt", 'r')
-nums = fo.read().split("\n")
-nums = [float(i) for i in nums[:-1] if i[0]!='#']
-numbuckets = 100
-buckets = [0 for i in range(numbuckets)]
-for i in nums:
-	buckets[int(i*numbuckets)]+=1
+fo = open("numbers.txt", 'r') # File opened in read only mode.
+nums = fo.read().split("\n") # Each line of the file is extracted.
 
-print(sum(buckets))
-plt.hist(nums,numbuckets)
+# Each line(except the last EOF line) is parsed to a float unless the line begins with a #(comment).
+nums = [float(i) for i in nums[:-1] if i[0]!='#'] 
+
+intervals = 100 # Number of intervals in the histogram.
+ 
+# Plotting the histogram.
+plt.hist(nums,intervals)
+plt.xlabel("Random number intervals")
+plt.ylabel("Frequency of occurence of the numbers in the intervals")
 plt.show()
-fo.close()
+
+fo.close() # Closing the opened file.
 
 
