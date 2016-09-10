@@ -1,3 +1,10 @@
+"""
+Program to plot the random numbers generated using the C program, which are now in the file named "numbers.txt".
+
+Author: Rajat Vadiraj Dwaraknath EE16B033
+Date: 10th September 2016
+"""
+
 import matplotlib.pyplot as plt # Importing matplotlib.pyplot
 
 fo = open("numbers.txt", 'r') # File opened in read only mode.
