@@ -17,7 +17,7 @@ which when discretized yields
 
 Y_n+1 = Y_n + h*f(t_n, Y_n)
 
-
+Recommened to use endTime of 10 so that computation time does not take too long.
 */
 
 // This is the function which returns the derivatives of each dependent variable as a vector of size 2.
