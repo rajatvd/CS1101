@@ -21,4 +21,5 @@ int main(){
 	printf("# Third function\n# x\t\ty1\t\ty2\n");
 	double y1[2] = {4,6};
 	rk4(f3,y1,0,4,0.5,2);
+	return 0;
 }

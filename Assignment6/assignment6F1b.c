@@ -17,7 +17,8 @@ void f2(double x, double *y, double *m){
 
 
 int main(){
-			printf("# Second function\n# x\t\ty\n");
-			double  y0[1] = {2};
-			rk4(f2,y0,0,10,0.05,1);
+	printf("# Second function\n# x\t\ty\n");
+	double  y0[1] = {2};
+	rk4(f2,y0,0,10,0.05,1);
+	return 0;
 }

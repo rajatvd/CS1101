@@ -20,4 +20,5 @@ int main(){
 	printf("# First function\n# x\t\ty\n");
 	double y0[1] = {1};
 	rk4(f1,y0,0,10,0.05,1);
+	return 0;
 }
