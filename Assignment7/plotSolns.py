@@ -48,7 +48,7 @@ def plotData(s):
 	plt.xlabel("Time")
 	plt.ylabel("States")
 	plt.title(s+" States vs time")
-	plt.legend(["State "+str(i) for i in range(1,len(states)+1,1)])
+	plt.legend(["State "+str(i) for i in range(1,len(states[0])+1,1)])
 	plt.show()
 
 
