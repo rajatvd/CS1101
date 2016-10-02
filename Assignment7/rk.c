@@ -4,10 +4,10 @@
 #include "rk.h"
 
 /**
-  Implementation of the 4th order Runge Kutta Method 
+  Implementation of the 4th order adaptive Runge Kutta Method with 5th order predictor-corrector.
 
 Author: Rajat Vadiraj Dwaraknath
-Date: 21st September 2016
+Date: 28th September 2016
  */
 
 // Generalized RK4 ode solver where sizeOfY is the order of the ode and f is the function which returns the derivative.
@@ -150,6 +150,9 @@ double rk45Step(void (*f)(double, double*, double*), double *y, double x, double
 	return error;
 }
 
+// Generalized RK45 ode solver where sizeOfY is the order of the ode and f is the function which returns the derivative.
+// y and x are initial conditions, xEnd is final value of x to which integration should be done, h is the initial stepsize, and tolerance is the desired relative error.
+// The input pointer y will contain the final value of integration after completion of the function evaluation.
 void rk45(void (*f)(double, double*, double*), double *y, double x, double xEnd, double h, double tolerance, int sizeOfY){
 	double error = 0, errorDesired = 0;
 	int j = 0;
