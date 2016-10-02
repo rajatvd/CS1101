@@ -19,8 +19,8 @@ def plotData(s):
 	fo = open(s, 'r')
 
 	# Read lines ignoring those that begin with '#'
-	lines = fo.read().split("\n")[:-1]
-	lines = [x.strip() for x in lines if x[0] != '#']
+	lines = fo.read().split("\n")
+	lines = [x.strip() for x in lines if len(x) != 0 and x[0] != '#']
 
 	# Close the file
 	fo.close()

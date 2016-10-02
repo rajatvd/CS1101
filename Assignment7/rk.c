@@ -168,6 +168,10 @@ void rk45(void (*f)(double, double*, double*), double *y, double x, double xEnd,
 
 	// Driver loop
 	while(x<xEnd){
+		if(xEnd-x<h){
+			// Checking if this should be the last step or not
+			h = xEnd-x;
+		}
 		error = rk45Step(f,y,x,h,sizeOfY);
 		// Move by the stepsize
 

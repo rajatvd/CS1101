@@ -19,7 +19,7 @@ void f2(double x, double *y, double *m){
 
 int main(){
 
-	printf("# 6.3 Using Cash-Karp Method for question:\n# x\t\ty\n");
+	printf("# 6.3 Using Cash-Karp Method:\n# x\t\ty\n");
 	double y0[1] = {0.5};
 	rk45(f2,y0,0,4,0.5,0.0000001,1);
 	return 0;
