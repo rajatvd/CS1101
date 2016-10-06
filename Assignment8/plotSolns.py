@@ -59,7 +59,7 @@ def plotData(s):
 	line = plt.plot(t,[i[1] for i in states])
 	plt.setp(line, color = 'r', linewidth = 2);
 	
-	plt.legend(["$y = $"+str(a1)+"*$x + $"+str(a0)+"\n$R^{2} = $"+lines[-1]], loc = 2);
+	plt.legend(["$y = $"+str(a1)+"*$x + $"+str(a0)+"\n$r^{2} = $"+lines[-1]], loc = 2);
 	plt.xlabel("X")
 	plt.ylabel("Y")
 	plt.title(s+" Y vs X")

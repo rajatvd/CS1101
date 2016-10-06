@@ -30,6 +30,7 @@ void leastSquares(double *x, double *y, int n, double *a){
 	double a1 = (n*sumXY - sumX*sumY)/(n*sumXSqr - pow(sumX,2));
 	double a0 = sumY/n - a1*sumX/n;
 	double rsqr = (n*sumXY - sumX*sumY)/sqrt((n*sumXSqr - pow(sumX,2))*(n*sumYSqr - pow(sumY,2))); 	
+	rsqr = pow(rsqr,2);
 
 	// Put the values into the given pointer
 	a[0] = a0;
