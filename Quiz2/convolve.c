@@ -40,3 +40,22 @@ void convolve(double *f, double *g, double *fcg, int lenF, int lenG){
 	return;
 
 }
+
+
+// Puts a normalized gaussian from -halfWdith to halfWidth into out with n points. 
+void getGaussian(double *out, double halfwidth, int n){
+	
+	int i;
+	double x, step = 2*halfwidth/(n-1), sum=0;
+
+	for(i=0;i<n;i++){
+		x = -halfwidth + i*step;
+		out[i] = exp(-x*x/2);
+		sum += out[i];
+	}
+
+	for(i=0;i<n;i++){
+		out[i]/=sum;
+	}
+
+}
