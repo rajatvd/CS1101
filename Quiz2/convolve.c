@@ -20,20 +20,43 @@ void convolve(double *f, double *g, double *fcg, int lenF, int lenG){
 	}
 	
 	int i,j;
-	double sum = 0;
+	double sum = 0, denom = 0, gSum = 0;
+
+	// For normalizing purpose
+	for(i=0;i<lenG;i++){
+		gSum+=g[i];
+	}
 	
 	for(i=0;i<lenF;i++){
 		
-		if(i<lenG/2 || i>lenF-lenG/2){
-			fcg[i] = f[i];
+		sum = 0;
+		denom = 0;
+
+		// Partially convolving the starting part of f
+		if(i<lenG/2){
+			for(j=0;j<i+lenG/2;j++){
+				sum += f[j]*g[j-i+lenG/2];
+				denom += g[j-i+lenG/2];
+			}
+
 		}
+		//Partially convolving the ending part of f
+		else if(i>lenF-lenG/2){
+			for(j=0;j<lenF-i+lenG/2;j++){
+				sum += f[lenF-j]*g[(lenF-i)-j+lenG/2];
+				denom += g[(lenF-i)-j+lenG/2]; 
+			}
+		}
+		//Fully convolve the central part of f
 		else{
-			sum = 0;
+			denom = 1;
 			for(j = 0;j<lenG;j++){
 				sum += g[j]*f[i-lenG/2+j];
 			}
-			fcg[i] = sum;
 		}
+
+		//Normalize the sum if required
+		fcg[i] = sum/denom*gSum;
 
 	}
 	
@@ -48,12 +71,14 @@ void getGaussian(double *out, double halfwidth, int n){
 	int i;
 	double x, step = 2*halfwidth/(n-1), sum=0;
 
+	// Get gaussian
 	for(i=0;i<n;i++){
 		x = -halfwidth + i*step;
 		out[i] = exp(-x*x/2);
 		sum += out[i];
 	}
 
+	// Normalize
 	for(i=0;i<n;i++){
 		out[i]/=sum;
 	}

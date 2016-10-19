@@ -8,7 +8,8 @@ LIBS = -lm
 OBJS = convolve.o quiz2.o 
 
 all : quiz2.out
-	
+	./quiz2.out data.dat > out.txt
+	python plotSolns.py out.txt
 
 .PHONY : all, clean
 
