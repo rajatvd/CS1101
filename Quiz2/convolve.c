@@ -24,7 +24,7 @@ void convolve(double *f, double *g, double *fcg, int lenF, int lenG){
 
 	// For normalizing purpose
 	for(i=0;i<lenG;i++){
-		gSum+=g[i];
+		gSum+=fabs(g[i]);
 	}
 	
 	for(i=0;i<lenF;i++){
@@ -43,8 +43,8 @@ void convolve(double *f, double *g, double *fcg, int lenF, int lenG){
 		//Partially convolving the ending part of f
 		else if(i>lenF-lenG/2){
 			for(j=0;j<lenF-i+lenG/2;j++){
-				sum += f[lenF-j]*g[(lenF-i)-j+lenG/2];
-				denom += g[(lenF-i)-j+lenG/2]; 
+				sum += g[j]*f[i-lenG/2+j]; 
+				denom += g[j]; 
 			}
 		}
 		//Fully convolve the central part of f
@@ -56,7 +56,7 @@ void convolve(double *f, double *g, double *fcg, int lenF, int lenG){
 		}
 
 		//Normalize the sum if required
-		fcg[i] = sum/denom*gSum;
+		fcg[i] = sum;///denom*gSum;
 
 	}
 	
