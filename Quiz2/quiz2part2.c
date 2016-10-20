@@ -83,11 +83,11 @@ int main(int argc, char **argv){
 	//centralDiff(yPrime,x,y,n);
 	//centralDiff(zPrime,x,z,n);
 
-	printf("# Scattering vs Time\n# Time,Scatter amount\n# Forward scatter, Side scatter\n");
+	printf("# Scattering vs Time\n# Time,Scatter amount\n# Forward scatter, Side scatter, Zero\n");
 	for(i=0;i<n;i++){
 		//printf("%lf %lf %lf\n",x[i],y[i],z[i]);
 		//printf("%lf %lf %lf\n",x[i],noiseless[i],noiseless2[i]);
-		printf("%lf %lf %lf\n",x[i],yPrime[i], zPrime[i]);
+		printf("%lf %lf %lf 0\n",x[i],yPrime[i], zPrime[i]);
 	}
 	
 	return 0;
