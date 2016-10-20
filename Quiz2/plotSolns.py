@@ -1,12 +1,15 @@
 """
 Author: Rajat Vadiraj Dwaraknath EE16B033
-Date 24th September 2016
+Date 20th October 2016
 
-Python code to plot the data in a text file assuming it contains the solution to a system of differential equations.
-The first column is assumed to contain the time instants and the successive columns are assumed to contain the values
-of the states at those time instants. Any number of states can be present.
+Python code to plot the data in a text file.
+The first column is assumed to contain the X values and the successive columns are assumed to contain the values
+of different data sets at the corresponding X values. These data sets are plotted individually. If the first three lines
+of the file being with #, they are assumed to contain the title, the x and y labels(comma separated) and legend(comma separated)
+respectively.
 """
 import matplotlib.pyplot as plt
+from numpy import *
 import sys
 
 # Command line argument for file name
@@ -20,6 +23,17 @@ def plotData(s):
 
 	# Read lines ignoring those that begin with '#'
 	lines = fo.read().split("\n")
+	
+	title = s+" X vs Y"
+	labels = ['X','Y']
+	legend = []
+
+	if lines[0][0] == '#' and lines[1][0] == '#' and lines[2][0] == '#':
+		title = lines[0][1:].strip()
+		labels = [i.strip() for i in lines[1][1:].strip().split(',')]
+		legend = [i.strip() for i in lines[2][1:].strip().split(',')]
+
+
 	lines = [x.strip() for x in lines if len(x) != 0 and x[0] != '#']
 
 	# Close the file
@@ -34,7 +48,7 @@ def plotData(s):
 	for i in lines:
 		
 		# Separate the columns
-		values = i.split("\t")
+		values = i.split(" ")
 
 		# First column contains time instants
 		t.append(float(values[0]))
@@ -44,11 +58,10 @@ def plotData(s):
 
 	# Plot the data
 	plt.plot(t,states)
-#	plt.scatter(t,states)
-	plt.xlabel("Time")
-	plt.ylabel("States")
-	plt.title(s+" States vs time")
-	plt.legend(["State "+str(i) for i in range(1,len(states[0])+1,1)])
+	plt.xlabel(labels[0])
+	plt.ylabel(labels[1])
+	plt.title(title)
+	plt.legend(legend)
 	plt.show()
 
 

@@ -5,11 +5,13 @@
 
 CC = gcc
 LIBS = -lm
-OBJS = convolve.o quiz2.o 
+OBJS = convolve.o quiz2.o quiz2part2.o
 
-all : quiz2.out
-	./quiz2.out data.dat > out.txt
+all : quiz2.out quiz2part2.out
+	./quiz2.out cleanFL1.dat > out.txt
 	python plotSolns.py out.txt
+	./quiz2part2.out cleanFS_SS1.dat > out2.txt
+	python plotSolns.py out2.txt
 
 .PHONY : all, clean
 
@@ -22,3 +24,6 @@ clean:
 
 quiz2.out : convolve.o quiz2.o
 	$(CC) -o $@ convolve.o quiz2.o $(LIBS)
+
+quiz2part2.out : convolve.o quiz2part2.o
+	$(CC) -o $@ convolve.o quiz2part2.o $(LIBS)

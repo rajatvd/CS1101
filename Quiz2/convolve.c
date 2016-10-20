@@ -49,14 +49,14 @@ void convolve(double *f, double *g, double *fcg, int lenF, int lenG){
 		}
 		//Fully convolve the central part of f
 		else{
-			denom = 1;
+			denom = gSum;
 			for(j = 0;j<lenG;j++){
 				sum += g[j]*f[i-lenG/2+j];
 			}
 		}
 
 		//Normalize the sum if required
-		fcg[i] = sum;///denom*gSum;
+		fcg[i] = sum/denom*gSum;
 
 	}
 	

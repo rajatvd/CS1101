@@ -28,8 +28,8 @@ int main(int argc, char **argv){
 	}
 
 	// Create arrays for x and y values
-	double *x = (double*)malloc(sizeof(double)*n),
-		   *y = (double*)malloc(sizeof(double)*n);
+	double *x = (double*)malloc(sizeof(double)*n);
+	double *y = (double*)malloc(sizeof(double)*n);
 
 	fclose(infile);
 	infile = fopen(argv[1],"r");
@@ -37,7 +37,7 @@ int main(int argc, char **argv){
 	// Get the values from each line
 	int i=0;
 	while(fgets(buff,255,infile)){
-		sscanf(buff,"%lf\t%lf",&x[i],&y[i]);
+		sscanf(buff,"%lf %lf",&x[i],&y[i]);
 		i++;
 	}
 
@@ -48,12 +48,21 @@ int main(int argc, char **argv){
 	double gaussian[30];
 	getGaussian(gaussian,halfwidth,gaussLength);
 
+	int constLength = 10;
+	double constant[10];
+
+	for(i=0;i<constLength;i++){
+		constant[i] = 1.0/constLength;
+	}
+	
 	double *noiseless = (double*)malloc(sizeof(double)*n);
 
-	convolve(y,gaussian,noiseless,n,gaussLength);
+	//convolve(y,gaussian,noiseless,n,gaussLength);
+	convolve(y,y,noiseless,n,n);
 
+	printf("# Fluorescence vs Time\n# Time,Fluorescence\n# Autocorrelated data\n");
 	for(i=0;i<n;i++){
-		printf("%lf\t%lf\t%lf\n",x[i],y[i],noiseless[i]);
+		printf("%lf %lf\n",x[i],noiseless[i]);
 	}
 	
 	return 0;
