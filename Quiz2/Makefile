@@ -12,9 +12,9 @@ all : noiseRemove.out peakFind.out
 	./noiseRemove.out FS1.dat > cleanFS1.dat
 	./noiseRemove.out SS1.dat > cleanSS1.dat
 	./peakFind.out cleanFL1.dat > peaks.txt
-	python plotSolns.py peaks.txt
+	python plotHists.py peaks.txt
 	./peakFind.out cleanFS1.dat > peaks.txt
-	python plotSolns.py peaks.txt
+	python plotHists.py peaks.txt
 	./peakFind.out cleanSS1.dat > peaks.txt
 	python plotSolns.py peaks.txt
 

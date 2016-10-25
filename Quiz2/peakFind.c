@@ -86,9 +86,7 @@ int main(int argc, char **argv){
 
 	thres = f*sum/count;
 
-	if(y[0]>thres){
-		inpeak=1;
-	}
+	if(y[0]>thres)inpeak=1;
 	for(int i=0;i<n;i++){
 		if(inpeak){
 			if(y[i]<thres){
@@ -110,6 +108,7 @@ int main(int argc, char **argv){
 		}
 	}
 
+	printf("# Height\tFull-Width at Half Max\tArea\n");
 	double tol = deriv(y,2,dt);
 	for(int j=0;j<peakCount;j++){
 		findEnds(&peaks[j],tol);
@@ -117,8 +116,6 @@ int main(int argc, char **argv){
 		peaks[j].data = rawY;
 		findHeight(&peaks[j]);
 		peaks[j].data = y;
-		findHalfwidth(&peaks[j]);
-		printf("# %lf %lf %lf\n", peaks[j].height, peaks[j].halfwidth, peaks[j].area);
 	}
 
 	//Merging:
@@ -136,7 +133,16 @@ int main(int argc, char **argv){
 		}
 	}
 
-	double val=0;
+	int newCount = 0;
+	for(int j=0;j<peakCount;j++){
+		if(peaks[j].height == -1)continue;
+		newCount++;
+		findHalfwidth(&peaks[j]);
+		printf("%lf %lf %lf\n", peaks[j].height, peaks[j].halfwidth, peaks[j].area);
+	}
+	printf("# %d\n", newCount);
+
+/*	double val=0;
 	for(int i=0;i<n;i++){
 		val=0;
 		for(int j=0;j<peakCount;j++){
@@ -151,5 +157,8 @@ int main(int argc, char **argv){
 		}
 		printf("%lf %lf %lf\n", t[i], y[i], val);
 	}
+*/
+	
+
 
 }
