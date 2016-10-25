@@ -24,6 +24,7 @@ int main(int argc, char **argv){
 
 	// Get the number of lines
 	while(fgets(buff,255,infile)){
+		if(buff[0] == '#')continue;
 		n++;
 	}
 
@@ -37,15 +38,20 @@ int main(int argc, char **argv){
 	// Get the values from each line
 	int i=0;
 	while(fgets(buff,255,infile)){
-		sscanf(buff,"%lf %lf",&x[i],&y[i]);
-		i++;
+		if(buff[0] == '#'){
+			printf("%s",buff);
+		}
+		else{
+			sscanf(buff,"%lf %lf",&x[i],&y[i]);
+			i++;
+		}
 	}
 
 
 	double halfwidth = 3;
 
-	int gaussLength = 30;
-	double gaussian[30];
+	int gaussLength = 21;
+	double gaussian[21];
 	getGaussian(gaussian,halfwidth,gaussLength);
 
 	int constLength = 10;
@@ -54,16 +60,15 @@ int main(int argc, char **argv){
 	for(i=0;i<constLength;i++){
 		constant[i] = 1.0/constLength;
 	}
-	
+
 	double *noiseless = (double*)malloc(sizeof(double)*n);
 
-	//convolve(y,gaussian,noiseless,n,gaussLength);
-	convolve(y,y,noiseless,n,n);
+	convolve(y,gaussian,noiseless,n,gaussLength);
 
-	printf("# Fluorescence vs Time\n# Time,Fluorescence\n# Autocorrelated data\n");
+	//	printf("# Fluorescence vs Time\n# Time,Fluorescence\n# Autocorrelated data\n");
 	for(i=0;i<n;i++){
-		printf("%lf %lf\n",x[i],noiseless[i]);
+		printf("%lf %lf %lf\n",x[i],y[i],noiseless[i]);
 	}
-	
+
 	return 0;
 }

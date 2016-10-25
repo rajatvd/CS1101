@@ -21,7 +21,6 @@ def plotData(s):
 	# Open the file
 	fo = open(s, 'r')
 
-	# Read lines ignoring those that begin with '#'
 	lines = fo.read().split("\n")
 	
 	title = s+" X vs Y"
@@ -33,6 +32,9 @@ def plotData(s):
 		labels = [i.strip() for i in lines[1][1:].strip().split(',')]
 		legend = [i.strip() for i in lines[2][1:].strip().split(',')]
 
+	if len(labels) != 2:
+		labels = ['X','Y']
+		
 
 	lines = [x.strip() for x in lines if len(x) != 0 and x[0] != '#']
 

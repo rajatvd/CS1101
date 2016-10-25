@@ -9,10 +9,15 @@ Author: Rajat Vadiraj Dwaraknath
 
  */
 
+void multiply(double *a, double f, int n){
+	for(int i=0;i<n;i++){
+		a[i]= a[i] * f;
+	}
+}
 
 // Find the dentral difference of f with respect to x and put it into fPrime.
 void centralDiff(double* f, double *x, double* fPrime, int n){
-	
+
 	int i;
 	fPrime[0] = (f[1]-f[0])/(x[1]-x[0]);
 	fPrime[n-1] = (f[n-1]-f[n-2])/(x[n-1]-x[n-2]);
@@ -22,8 +27,14 @@ void centralDiff(double* f, double *x, double* fPrime, int n){
 
 }
 
+void square(double* a, double* b,int n){
+	for(int i=0;i<n;i++){
+		b[i] = a[i]*a[i];
+	}	
+}
+
 int main(int argc, char **argv){
-	
+
 	if(argc!=2){
 		printf("Invalid input. Usage: %s <input file path>\n", argv[0]);
 		return 0;
@@ -44,8 +55,8 @@ int main(int argc, char **argv){
 
 	// Create arrays for x and y values
 	double *x = (double*)malloc(sizeof(double)*n),
-		*y = (double*)malloc(sizeof(double)*n),
-		*z = (double*)malloc(sizeof(double)*n);
+		   *y = (double*)malloc(sizeof(double)*n),
+		   *z = (double*)malloc(sizeof(double)*n);
 
 	fclose(infile);
 	infile = fopen(argv[1],"r");
@@ -59,7 +70,7 @@ int main(int argc, char **argv){
 	}
 
 
-	double halfwidth = 15;
+	double halfwidth = 5;
 
 	int gaussLength = 100;
 	double gaussian[100];
@@ -71,25 +82,53 @@ int main(int argc, char **argv){
 	double *zPrime = (double*)malloc(sizeof(double)*n);
 	double *yPrime = (double*)malloc(sizeof(double)*n);
 
-	convolve(y,gaussian,noiseless,n,gaussLength);
+/*	convolve(y,gaussian,noiseless,n,gaussLength);
 	convolve(z,gaussian,noiseless2,n,gaussLength);
 
-	convolve(noiseless,noiseless,y,n,n);
-	convolve(noiseless2,noiseless2,z,n,n);
+	square(noiseless,y,n);
+	square(noiseless2,z,n);
 
-	centralDiff(y,x,yPrime,n);
-	centralDiff(z,x,zPrime,n);
+	square(y,y,n);
+	square(z,z,n);
+
+	square(y,y,n);
+	square(z,z,n);
+*/
+//	square(y,y,n);
+//	square(z,z,n);
+
+//	convolve(y,gaussian,noiseless,n,gaussLength);
+	convolve(z,gaussian,noiseless2,n,gaussLength);
+
+	//convolve(noiseless,gaussian,y,n,gaussLength);
+	//convolve(noiseless2,gaussian,z,n,gaussLength);
+
+	convolve(noiseless2,noiseless2,y,n,n);
+	multiply(y, 0.0005, n);
+
+	//convolve(noiseless2,noiseless2,z,n,n);
+	//convolve(noiseless2,noiseless2,z,n,n);
+
+	//centralDiff(noiseless,x,yPrime,n);
+	//centralDiff(noiseless2,x,zPrime,n);
 
 	//centralDiff(yPrime,x,y,n);
 	//centralDiff(zPrime,x,z,n);
 
-	printf("# Scattering vs Time\n# Time,Scatter amount\n# Forward scatter, Side scatter, Zero\n");
+	//	convolve(yPrime,gaussian,noiseless,n,gaussLength);
+	//	convolve(zPrime,gaussian,noiseless2,n,gaussLength);
+
+	//	convolve(noiseless,noiseless,y,n,n);
+	//	convolve(noiseless2,noiseless2,z,n,n);
+
+	printf("# Scattering vs Time\n# Time,Scatter amount\n# Forward scatter, Side scatter\n");
 	for(i=0;i<n;i++){
-		//printf("%lf %lf %lf\n",x[i],y[i],z[i]);
-		//printf("%lf %lf %lf\n",x[i],noiseless[i],noiseless2[i]);
-		printf("%lf %lf %lf 0\n",x[i],yPrime[i], zPrime[i]);
+		printf("%lf %lf %lf\n",x[i],y[i],noiseless2[i]);
+//		printf("%lf %lf %lf\n",x[i],noiseless[i],noiseless2[i]);
+		//printf("%lf %lf %lf 0\n",x[i],yPrime[i], zPrime[i]);
+		//printf("%lf %lf %lf 0\n",x[i],noiseless2[i],z[i]);
 	}
-	
+
 	return 0;
 }
 
