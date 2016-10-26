@@ -5,11 +5,14 @@
 
 /**
 
+  Removes the noise in the data provided in the input file, using a gaussian convolution filter.
+
 Author: Rajat Vadiraj Dwaraknath
+Date: 25th October 2016
 
  */
 int main(int argc, char **argv){
-	
+
 	if(argc!=2){
 		printf("Invalid input. Usage: %s <input file path>\n", argv[0]);
 		return 0;
@@ -38,6 +41,7 @@ int main(int argc, char **argv){
 	// Get the values from each line
 	int i=0;
 	while(fgets(buff,255,infile)){
+		// Ignore comments
 		if(buff[0] == '#'){
 			printf("%s",buff);
 		}
@@ -48,24 +52,19 @@ int main(int argc, char **argv){
 	}
 
 
+	// Create the gaussian kernel based on some parameters like width and number of points.
 	double halfwidth = 3;
-
 	int gaussLength = 21;
 	double gaussian[21];
 	getGaussian(gaussian,halfwidth,gaussLength);
 
-	int constLength = 10;
-	double constant[10];
-
-	for(i=0;i<constLength;i++){
-		constant[i] = 1.0/constLength;
-	}
-
+	// Create array to store noise removed data
 	double *noiseless = (double*)malloc(sizeof(double)*n);
 
+	// Remove the noise
 	convolve(y,gaussian,noiseless,n,gaussLength);
 
-	//	printf("# Fluorescence vs Time\n# Time,Fluorescence\n# Autocorrelated data\n");
+	// Output the results
 	for(i=0;i<n;i++){
 		printf("%lf %lf %lf\n",x[i],y[i],noiseless[i]);
 	}

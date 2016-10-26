@@ -3,14 +3,30 @@
 #include<stdlib.h>
 #include<math.h>
 
+/**
+
+Author: Rajat Vadiraj Dwaraknath EE16B033
+Date: 25th October 2016
+
+Interface for analysis of peaks
+
+ */
+
 // Peak structure
 struct Peak{
+	// Indices in data array:
 	int maxi, start, end, halfstart, halfend;
+
+	// Values
 	double height;
 	double halfwidth;
 	double area;
+
+	// Pointer to data array
 	double *data;
-	int n;
+	int n; // Length of data array
+
+	// Time difference between data points
 	double dt;
 };
 
