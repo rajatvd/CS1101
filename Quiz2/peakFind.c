@@ -174,22 +174,22 @@ int main(int argc, char **argv){
 	printf("# %d\n", newCount);
 
 	// Code used to check peak detection and analysis
-	/*	double val=0;
-		for(int i=0;i<n;i++){
+/*	double val=0;
+	for(int i=0;i<n;i++){
 		val=0;
 		for(int j=0;j<peakCount;j++){
-		if(peaks[j].height == -1)continue;
-		if(i==peaks[j].maxi || i==peaks[j].start || i==peaks[j].end ||i==peaks[j].halfstart || i==peaks[j].halfend){
-		if(i==peaks[j].maxi){
-		val = rawY[i];
-		}else{
-		val = y[i];
-		}
-		}
+			if(peaks[j].height == -1)continue;
+			if(i==peaks[j].maxi || i==peaks[j].start || i==peaks[j].end ||i==peaks[j].halfstart || i==peaks[j].halfend){
+				if(i==peaks[j].maxi){
+					val = rawY[i];
+				}else{
+					val = y[i];
+				}
+			}
 		}
 		printf("%lf %lf %lf\n", t[i], y[i], val);
-		}
-	 */
+	}
+*/
 
 	return 0;
 }

@@ -20,7 +20,7 @@ double std(double *a, int size){
 	double m = mean(a, size);
 	double result = 0;
 	for(int i = 0; i < size; i++)
-		result += a[i]*a[i];
+		result += (m-a[i])*(m-a[i]);
 	result = sqrt(result/size);
 	return result;
 }
